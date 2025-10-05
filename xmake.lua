@@ -31,8 +31,7 @@ add_requireconfs("**|python|cmake|ninja|meson", { override = true, system = fals
 function require_htmlkit()
     if is_plat("linux") then
         if is_arch("x86_64") then
-            add_linkorders("pangocairo-1.0", "pango-1.0")
-            add_linkorders("pangoft2-1.0", "pango-1.0")
+            add_linkorders("pangocairo-1.0", "pangoft2-1.0", "pango-1.0")
         else
             add_linkorders("pangocairo-1.0", "pangoft2-1.0", "pango-1.0")
         end

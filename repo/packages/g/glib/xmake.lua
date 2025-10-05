@@ -31,7 +31,7 @@ package("glib")
         add_syslinks("resolv")
         add_frameworks("AppKit", "Foundation", "CoreServices", "CoreFoundation")
     elseif is_plat("linux") then
-        add_syslinks("pthread", "dl", "resolv")
+        add_syslinks("intl", "pthread", "dl", "resolv")
     end
 
     add_deps("meson", "ninja", "libffi", "zlib")
