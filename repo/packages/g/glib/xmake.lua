@@ -31,12 +31,13 @@ package("glib")
         add_syslinks("resolv")
         add_frameworks("AppKit", "Foundation", "CoreServices", "CoreFoundation")
     elseif is_plat("linux") then
-        add_syslinks("intl", "pthread", "dl", "resolv")
+        add_syslinks("pthread", "dl", "resolv")
     end
 
     add_deps("meson", "ninja", "libffi", "zlib")
     if is_plat("linux") then
         add_deps("libiconv")
+        add_deps("libintl", {system = true})
     elseif is_plat("macosx") then
         add_deps("libiconv", {system = true})
         add_deps("libintl")
