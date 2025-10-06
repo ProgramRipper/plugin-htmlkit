@@ -67,7 +67,7 @@ class XmakeBuildExt(build_ext):
         build_target.mkdir(parents=True, exist_ok=True)
         bindist_dir = Path("bindist")
         core_dylib = bindist_dir / "core.dylib"
-        if not bindist_dir.exists():
+        if not core_dylib.exists():
             ensure_submodules(self)
             config_mode = os.environ.get("XMAKE_CONFIG_MODE", "releasedbg")
             config_cmd = ["xmake", "config", "--diagnosis", "-m", config_mode, "-y"]

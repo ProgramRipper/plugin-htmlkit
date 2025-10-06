@@ -25,8 +25,8 @@ set_languages("c++17")
 add_requires("libavif", {configs = { aom = true }})
 add_requires("cairo", {configs = { xlib = false }})
 add_requireconfs("**.cairo", { override = true, configs = { xlib = false } })
-add_requires("python", { system = true, version = "3.10.11", configs = { shared = true } })
-add_requireconfs("**.python", { override = true, version = "3.10.11", configs = { headeronly = true, shared = true } })
+add_requires("python", { system = true, version = ">=3.10", configs = { headeronly = true, shared = true } })
+add_requireconfs("**.python", { override = true, configs = { headeronly = true, shared = true } })
 add_requireconfs("**|python|cmake|ninja|meson", { override = true, system = false, configs = { shared = false } })
 function require_htmlkit()
     if is_plat("linux") then
@@ -37,11 +37,11 @@ function require_htmlkit()
             add_linkorders("pangocairo-1.0", "pangoft2-1.0", "pango-1.0")
         end
     end
-    add_packages("litehtml", "cairo", "pango", "python", "libjpeg-turbo", "libwebp", "libavif", "giflib")
+    add_packages("litehtml", "cairo", "pango", "libjpeg-turbo", "libwebp", "libavif", "giflib")
     add_packages("aklomp-base64", "fmt")
     add_packages("python", { links = {} })
     add_files("core/*.cpp")
-    add_defines("UNICODE", "PY_SSIZE_T_CLEAN", "Py_LIMITED_API=0x030a0000")  -- Python 3.10
+    add_defines("UNICODE", "PY_SSIZE_T_CLEAN", "Py_NO_LINK_LIB", "Py_LIMITED_API=0x030a0000")  -- Python 3.10
     if is_plat("windows") then
         add_links("Dwrite")
     end

@@ -17,12 +17,12 @@ package("libintl")
     end
 
     on_fetch(function (package, opt)
-        import("lib.detect.has_cfuncs")
-        if has_cfuncs("gettext", {includes = "libintl.h"}) then
-            return package:find_package("system::c", {include = "libintl.h"})
-        end
-
         if opt.system then
+            import("lib.detect.has_cfuncs")
+            if package:is_plat("linux") and has_cfuncs("gettext", {includes = "libintl.h"}) then
+                return package:find_package("system::c", {include = "libintl.h"})
+            end
+
             return package:find_package("system::intl", {includes = "libintl.h"})
         end
     end)
