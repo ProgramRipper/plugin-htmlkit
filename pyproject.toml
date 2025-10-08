@@ -118,14 +118,6 @@ asyncio_default_fixture_loop_scope = "session"
 
 
 [tool.cibuildwheel]
-build = [
-  "cp310-macosx_arm64",
-  "cp310-win_amd64",
-  "cp310-manylinux_x86_64",
-  "cp310-musllinux_x86_64",
-  "cp310-manylinux_aarch64",
-  "cp310-musllinux_aarch64",
-]
 enable = ["cpython-freethreading"]
 build-frontend = "build[uv]"
 manylinux-x86_64-image = "manylinux_2_34"
