@@ -71,7 +71,7 @@ class XmakeBuildExt(build_ext):
         if not core_dylib.exists():
             ensure_submodules(self)
             config_mode = os.environ.get("XMAKE_CONFIG_MODE", "releasedbg")
-            config_cmd = ["xmake", "config", "-vvD", "-m", config_mode, "-y"]
+            config_cmd = ["xmake", "config", "-D", "-m", config_mode, "-y"]
             if sys.platform == "darwin":
                 target_minver = os.environ.get("MACOSX_DEPLOYMENT_TARGET", "12.0")
                 config_cmd += [f"--target_minver={target_minver}"]

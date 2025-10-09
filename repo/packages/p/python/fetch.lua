@@ -5,10 +5,8 @@ import("lib.detect.find_program")
 
 function _find_binary(package, opt)
     local result = package:find_tool("python3", opt)
-    print(result, opt)
     if not result then
         result = package:find_tool("python", opt)
-        print(result, opt)
     end
     if result then
         -- check if pip, setuptools and wheel are installed
@@ -18,7 +16,6 @@ function _find_binary(package, opt)
             os.vrunv(result.program, { "-c", "import wheel" })
             return true
         end }
-        print(ok)
         if not ok then
             return false
         end
@@ -51,17 +48,14 @@ function _find_library(package, opt)
 
     -- find python
     local program = find_program("python3", opt)
-    print(program, opt)
     if not program then
         program = find_program("python", opt)
-        print(program, opt)
     end
     if not program then
         return false
     end
 
     local out = try { function () return json.decode(os.iorunv(program, { "-c", _find_library_py })) end }
-    print(out)
     if not out then
         return false
     end
@@ -76,7 +70,6 @@ function _find_library(package, opt)
 
     -- find library and header
     local exepath = path.directory(program)
-    print("exepath: ", exepath)
     local link = nil
     local libpath = nil
     local includepath = nil
@@ -88,11 +81,8 @@ function _find_library(package, opt)
         if out.debug then
             link = link .. "_d"
         end
-        print("link: ", link)
         libpath = find_library(link, { exepath, out.base_prefix }, { suffixes = { "libs" } })
-        print("libpath: ", libpath)
         includepath = find_path("Python.h", { exepath, out.base_prefix }, { suffixes = { "include" } })
-        print("includepath: ", includepath)
     else
         link = "python" .. table.concat(table.slice(version:split("%."), 1, 2), ".")
         if out.gil_disabled then
@@ -101,11 +91,8 @@ function _find_library(package, opt)
         if out.debug then
             link = link .. "d"
         end
-        print("link: ", link)
         libpath = find_library(link, { path.directory(exepath), out.base_prefix }, { suffixes = { "lib", "lib64", "lib/x86_64-linux-gnu" } })
-        print("libpath: ", libpath)
         includepath = find_path("Python.h", { path.directory(exepath), out.base_prefix }, { suffixes = { "include/" .. link } })
-        print("includepath: ", includepath)
     end
 
     if not includepath then

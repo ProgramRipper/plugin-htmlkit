@@ -14,7 +14,7 @@ ASSETS_DIR = Path(__file__).parent / "assets"
 
 def pytest_configure(config: pytest.Config):
     config.stash[NONEBOT_INIT_KWARGS] = {
-        "driver": "~fastapi+~httpx",
+        "driver": "~httpx",
         "fontconfig_path": ASSETS_DIR.as_posix(),
         "fontconfig_file": "fonts.conf",
     }

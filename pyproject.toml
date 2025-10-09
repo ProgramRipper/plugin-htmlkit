@@ -55,7 +55,7 @@ build = [
     "wheel>=0.45.1",
 ]
 test = [
-    "nonebot2[fastapi,httpx]>=2.4.3",
+    "nonebot2[httpx]>=2.4.3",
     "nonebot-adapter-onebot>=2.4.6",
     "nonebug>=0.4.3",
     "numpy>=2.2.6",
@@ -122,10 +122,10 @@ enable = ["cpython-freethreading"]
 build-frontend = "build[uv]"
 manylinux-x86_64-image = "manylinux_2_34"
 manylinux-aarch64-image = "manylinux_2_34"
-build-verbosity = 3  # XXX
-test-command = "pytest {project}/tests --output-img-dir {project}/tests_output"
+test-command = "pytest"
+test-sources = ["pyproject.toml", "tests/"]
 test-groups = ["test"]
-test-skip = "*"  # XXX
+test-environment = { PYTHON_GIL = "0" }
 
 [tool.cibuildwheel.environment]
 XMAKE_ROOT = "y"
