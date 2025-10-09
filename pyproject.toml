@@ -128,7 +128,6 @@ test-groups = ["test"]
 test-environment = { PYTHON_GIL = "0" }
 
 [tool.cibuildwheel.environment]
-XMAKE_ROOT = "y"
 XMAKE_CONFIG_MODE = "release"
 
 [tool.cibuildwheel.windows]
@@ -137,5 +136,12 @@ before-build = "cp %VIRTUAL_ENV%/Scripts/python.exe %VIRTUAL_ENV%/Scripts/python
 [tool.cibuildwheel.linux]
 before-all = [
   "if apk --version; then apk add gzip; fi",
-  "curl -fsSL https://xmake.io/shget.text | prefix=/usr/local bash"
+  "if ! xmake --version; then curl -fsSL https://xmake.io/shget.text | prefix=/host/tmp/.local bash; fi"
 ]
+
+[tool.cibuildwheel.linux.environment]
+PATH = "/host/tmp/.local/bin:$PATH"
+XMAKE_CONFIG_MODE = "release"
+XMAKE_GLOBALDIR  = "/host/tmp"
+XMAKE_ROOT = "y"
+UV_CACHE_DIR="/host/tmp/setup-uv-cache"
