@@ -53,7 +53,6 @@ build = [
 ]
 test = [
     "nonebot2[httpx]>=2.4.3",
-    "nonebot-adapter-onebot>=2.4.6",
     "nonebug>=0.4.3",
     "numpy>=2.2.6",
     "pillow>=11.3.0",

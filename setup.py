@@ -77,7 +77,7 @@ class XmakeBuildExt(build_ext):
                 config_cmd += [f"--target_minver={target_minver}"]
             check_call(config_cmd)
             check_call(["xmake", "build", "-vD", "core"])
-            check_call(["xmake", "install", "-o", "bindist"])
+            check_call(["xmake", "install"])
         dylib_target = build_target.joinpath("core.so").with_suffix(get_abi3_suffix())
         copyfile(core_dylib, dylib_target)
 
